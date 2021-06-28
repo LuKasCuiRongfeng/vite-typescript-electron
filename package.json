@@ -1,0 +1,93 @@
+{
+  "name": "ele-ts",
+  "author": "crf",
+  "description": "ele for typescript",
+  "version": "0.0.0",
+  "main": "dist/main/main.js",
+  "scripts": {
+    "start": "concurrently -n=render,main -c=green,blue \"npm run start:dev\" \"npm run start:ele\"",
+    "start:dev": "vite",
+    "start:ele": "ts-node script/electron.dev.ts --watch",
+    "build:dev": "tsc && vite build",
+    "build:ele": "ts-node script/electron.dev.ts",
+    "prebuild": "rimraf dist",
+    "build": "npm run build:dev && npm run build:ele && electron-builder",
+    "debug:ele": "ts-node script/electron.dev --debug",
+    "debug": "concurrently -n=render,main -c=green,blue \"npm run start:dev\" \"npm run debug:ele\"",
+    "serve": "vite preview"
+  },
+  "build": {
+    "appId": "2067380264@qq.com",
+    "productName": "electron-template",
+    "copyright": "Copyright @ 2021 ${author}",
+    "asar": false,
+    "directories": {
+      "output": "release/babel-webpack"
+    },
+    "files": [
+      "!node_modules",
+      "dist/**"
+    ],
+    "extraResources": {
+      "from": "src/preload",
+      "to": "app/src/preload"
+    },
+    "mac": {
+      "artifactName": "${productName}-V-${version}.${ext}",
+      "target": [
+        "dmg"
+      ]
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "artifactName": "${productName}-V-${version}.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "deleteAppDataOnUninstall": false
+    }
+  },
+  "dependencies": {
+    "react": "^17.0.0",
+    "react-dom": "^17.0.0"
+  },
+  "devDependencies": {
+    "@reduxjs/toolkit": "^1.6.0",
+    "@rollup/plugin-commonjs": "^19.0.0",
+    "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-node-resolve": "^13.0.0",
+    "@rollup/plugin-typescript": "^8.2.1",
+    "@types/minimist": "^1.2.1",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "@types/react-router-dom": "^5.1.7",
+    "@types/wait-on": "^5.3.0",
+    "@vitejs/plugin-react-refresh": "^1.3.1",
+    "chalk": "^4.1.1",
+    "concurrently": "^6.2.0",
+    "dotenv": "^10.0.0",
+    "electron": "^13.1.2",
+    "electron-builder": "^22.11.7",
+    "minimist": "^1.2.5",
+    "ora": "^5.4.1",
+    "react-redux": "^7.2.4",
+    "react-router-dom": "^5.2.0",
+    "redux": "^4.1.0",
+    "rimraf": "^3.0.2",
+    "rollup": "^2.52.1",
+    "ts-node": "^10.0.0",
+    "tslib": "^2.3.0",
+    "typescript": "^4.3.2",
+    "vite": "^2.3.7",
+    "wait-on": "^5.3.0"
+  }
+}
