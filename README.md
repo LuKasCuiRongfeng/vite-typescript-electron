@@ -21,6 +21,7 @@ npm install
 + [rollup](https://rollupjs.org/ "rollup")
 的一套完整的构建桌面端流程的模板，这里使用的是[react](https://reactjs.org/ "react")，
 但实际上你可以很方便的嵌入任何当前流行的前端框架，支持热更新，启动速度很快
+webpack版本移动至[webpack-version](https://github.com/LuKasCuiRongfeng/electron-ts-template)
 ********
 # 点个赞？
 手滑给个star？
