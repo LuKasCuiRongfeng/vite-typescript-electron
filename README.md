@@ -17,10 +17,10 @@ npm install
 # introduce
 结合了
 + [electron](https://www.electronjs.org/ "electron")
-+ [typescript](https://www.typescriptlang.org/ "typescript") + [webpack](https://webpack.js.org/ "webpack")
++ [typescript](https://www.typescriptlang.org/ "typescript")
 + [rollup](https://rollupjs.org/ "rollup")
 的一套完整的构建桌面端流程的模板，这里使用的是[react](https://reactjs.org/ "react")，
-但实际上你可以很方便的嵌入任何当前流行的前端框架
+但实际上你可以很方便的嵌入任何当前流行的前端框架，支持热更新，启动速度很快
 ********
 # 点个赞？
 手滑给个star？
