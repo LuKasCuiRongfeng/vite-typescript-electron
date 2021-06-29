@@ -1,15 +1,32 @@
 // import _ from 'lodash'
 import { BrowserWindow, BrowserWindowConstructorOptions, BrowserView, Rectangle, app } from 'electron'
-import { defaultWinOptions } from '../../consts/ipc'
+import { SEND_MSG } from '../../consts/ipc'
 
-interface Windows {
+export interface Windows {
     [key: string]: {
         window: Electron.BrowserWindow,
         options: CreateWinOpts
     }
 }
 
-interface CreateWinOpts {
+export const defaultWinOptions: BrowserWindowConstructorOptions = {
+    width: 700,
+    height: 700,
+    webPreferences: {
+        enableRemoteModule: true,
+        nodeIntegration: true,
+        contextIsolation: false
+    }
+}
+
+// 考虑到创建新窗口的同时可能还需要传入参数
+export interface Opts {
+    data?: { type: string, payload: any },
+    createWinOpts: CreateWinOpts,
+    beforeClosed?: (remote: Electron.Remote) => void
+}
+
+export interface CreateWinOpts {
     key: string,
     browserWindowConstructorOptions?: BrowserWindowConstructorOptions,
     openDevTools?: boolean,
@@ -26,14 +43,14 @@ class WindowsManager {
             key,
             openDevTools = true,
             preventOriginClose = false,
-            browserWindowConstructorOptions = defaultWinOptions
+            browserWindowConstructorOptions
         } = createWinOpts
         if (this.windows[key]) {
             // 窗口已存在，聚焦
             this.windows[key].window.focus()
             return this.windows[key].window
         }
-        const window = new BrowserWindow(browserWindowConstructorOptions)
+        const window = new BrowserWindow({ ...defaultWinOptions, ...(browserWindowConstructorOptions || {}) })
         window.on("close", e => {
             if (preventOriginClose) {
                 e.preventDefault()
@@ -57,10 +74,14 @@ class WindowsManager {
     }
     /**
      * 可以向当前窗口添加额外视图
-     * @param window 窗口
+     * @param key 窗口唯一key
      * @param loadURL 视图的来源
+     * @param position 视图位置
      */
-    addBroswerView(window: Electron.BrowserWindow, loadURL: string, position?: Rectangle) {
+    addBroswerView(key: string, loadURL: string, position?: Rectangle) {
+        let window: Electron.BrowserWindow | null = null
+        if (!this.windows[key]) return
+        window = this.windows[key].window
         const broswerView = new BrowserView()
         window.setBrowserView(broswerView)
         broswerView.setBounds(Object.assign({
@@ -73,12 +94,22 @@ class WindowsManager {
 
         const onfailure = () => {
             if (broswerView.webContents && !broswerView.webContents.isDestroyed()) {
-                window.removeBrowserView(broswerView)
+                window?.removeBrowserView(broswerView)
             }
         }
         window.webContents.on("render-process-gone", onfailure)
         window.webContents.on("unresponsive", onfailure)
         window.webContents.on("did-finish-load", onfailure)
+    }
+
+    /**
+     * 可以跨窗口传数据
+     */
+    sendMsg(key: string, data: { type: string, payload: any }) {
+        let window: Electron.BrowserWindow | null = null
+        if (!this.windows[key]) return
+        window = this.windows[key].window
+        window.webContents.send(SEND_MSG, data)
     }
 
     /**

@@ -11,14 +11,20 @@ app.whenReady().then(() => {
   myApp.windowManager?.createWin(getBaseUrl(), {
     key: "main",
     openDevTools: true,
-    preventOriginClose: false
+    preventOriginClose: false,
+    browserWindowConstructorOptions: {
+      title: "main"
+    }
   })
   app.on('activate', function () {
     if (BrowserWindow.getAllWindows().length === 0) {
       myApp.windowManager?.createWin(getBaseUrl(), {
         key: "main",
         openDevTools: true,
-        preventOriginClose: false
+        preventOriginClose: false,
+        browserWindowConstructorOptions: {
+          title: "main"
+        }
       })
     }
   })

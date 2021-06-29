@@ -1,20 +1,7 @@
-import { BrowserWindowConstructorOptions } from 'electron'
+import { Rectangle } from 'electron'
 
 export const SEND_MSG = "SEND_MSG"
 export const CREATE_WIN = "CREATE_WIN"
+export const CREATE_VIEW = "CREATE_VIEW"
 
-export interface Opts {
-    data?: { type: string, payload: any },
-    winOpts?: BrowserWindowConstructorOptions,
-    beforeClosed?: (remote: Electron.Remote) => void
-}
-
-export const defaultWinOptions: BrowserWindowConstructorOptions = {
-    width: 700,
-    height: 700,
-    webPreferences: {
-        enableRemoteModule: true,
-        nodeIntegration: true,
-        contextIsolation: false
-    }
-}
+export type ElectronRectangle = Rectangle
