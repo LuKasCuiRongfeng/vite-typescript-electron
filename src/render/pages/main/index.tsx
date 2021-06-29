@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { useAppDispatch, useAppSelector } from '../../store/hooks'
-import { createWin } from '../../utils'
+import { createWin } from '../../ipc/utils'
 import './index.css'
 
 function Main() {

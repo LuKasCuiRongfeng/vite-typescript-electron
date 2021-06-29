@@ -1,6 +1,5 @@
-import { SEND_MSG, CREATE_WIN } from '../consts/ipc'
-import { Opts } from '../consts/ipc'
-const { ipcRenderer } = require('electron')
+import { SEND_MSG, CREATE_WIN, Opts } from '../../consts/ipc'
+import { ipcRenderer } from './ipc'
 
 
 function sendMsg(key: string, data: { type: string, payload: any }) {
@@ -14,6 +13,5 @@ function createWin(key: string, opts?: Opts) {
 
 export {
     sendMsg,
-    createWin,
-    ipcRenderer
+    createWin
 }

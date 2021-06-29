@@ -9,3 +9,12 @@ export interface Opts {
     beforeClosed?: (remote: Electron.Remote) => void
 }
 
+export const defaultWinOptions: BrowserWindowConstructorOptions = {
+    width: 700,
+    height: 700,
+    webPreferences: {
+        enableRemoteModule: true,
+        nodeIntegration: true,
+        contextIsolation: false
+    }
+}
