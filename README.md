@@ -15,7 +15,7 @@ npm install
 > 注意：该脚本还不完善，每次调试前，先把当前的electron先杀掉，否则看不到控制台信息
 **********
 # introduce
-结合了
+高度自定义，结合了：
 + [electron](https://www.electronjs.org/ "electron")
 + [typescript](https://www.typescriptlang.org/ "typescript")
 + [rollup](https://rollupjs.org/ "rollup")
