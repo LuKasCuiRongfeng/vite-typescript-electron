@@ -1,7 +1,6 @@
 import { app } from 'electron'
 import { join } from 'path'
 import { config } from 'dotenv'
-import { SEND_MSG } from '../consts/ipc'
 
 config()
 

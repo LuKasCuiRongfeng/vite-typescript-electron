@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { useAppDispatch, useAppSelector } from '../../store/hooks'
-import { createWin, sendMsg } from '../../ipc/utils'
+import { ipc } from '../../ipc/utils'
 import './index.css'
 
 function Main() {
@@ -14,25 +14,28 @@ function Main() {
         })
     }
     const openWin = () => {
-        createWin({
+        ipc({
+            type: "CREATE_WIN",
             data: {
-                type: "about/increment",
-                payload: "hello world"
-            },
-            createWinOpts: {
                 key: "about",
-                openDevTools: true,
-                browserWindowConstructorOptions: {
-                    title: "about"
+                data: {
+                    type: "about/increment",
+                    payload: "hello world"
                 }
             }
         })
     }
 
     const changeAbout = () => {
-        sendMsg("about", {
-            type: "about/increment",
-            payload: "add about"
+        ipc({
+            type: "SEND_MSG",
+            data: {
+                key: "about",
+                data: {
+                    type: "about/increment",
+                    payload: "main"
+                }
+            }
         })
     }
     return (

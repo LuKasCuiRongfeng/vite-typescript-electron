@@ -1,6 +1,8 @@
-// import _ from 'lodash'
+/**
+ * 窗口管理类
+ */
+
 import { BrowserWindow, BrowserWindowConstructorOptions, BrowserView, Rectangle, app } from 'electron'
-import { SEND_MSG } from '../../consts/ipc'
 
 export interface Windows {
     [key: string]: {
@@ -19,15 +21,10 @@ export const defaultWinOptions: BrowserWindowConstructorOptions = {
     }
 }
 
-// 考虑到创建新窗口的同时可能还需要传入参数
-export interface Opts {
-    data?: { type: string, payload: any },
-    createWinOpts: CreateWinOpts,
-    beforeClosed?: (remote: Electron.Remote) => void
-}
-
 export interface CreateWinOpts {
     key: string,
+    // 是否向新窗口传送值
+    data?: { type: string, payload: any },
     browserWindowConstructorOptions?: BrowserWindowConstructorOptions,
     openDevTools?: boolean,
     preventOriginClose?: boolean
@@ -41,6 +38,7 @@ class WindowsManager {
     createWin(baseUrl: string, createWinOpts: CreateWinOpts) {
         const {
             key,
+            data,
             openDevTools = true,
             preventOriginClose = false,
             browserWindowConstructorOptions
@@ -64,6 +62,10 @@ class WindowsManager {
         window.on("ready-to-show", () => {
             if (openDevTools) {
                 window.webContents.openDevTools()
+            }
+            if (data) {
+                // 如果data存在，则向窗口传值
+                this.sendMsg(key, data)
             }
         })
         this.windows[key] = {
@@ -105,11 +107,11 @@ class WindowsManager {
     /**
      * 可以跨窗口传数据
      */
-    sendMsg(key: string, data: { type: string, payload: any }) {
+    sendMsg(key: string, data: { type: string, payload: any }, ipcType?: string) {
         let window: Electron.BrowserWindow | null = null
         if (!this.windows[key]) return
         window = this.windows[key].window
-        window.webContents.send(SEND_MSG, data)
+        window.webContents.send(ipcType || "SEND_MSG", data)
     }
 
     /**
