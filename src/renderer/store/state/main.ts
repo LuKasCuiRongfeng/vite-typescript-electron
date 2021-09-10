@@ -1,10 +1,17 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-export const app  = createSlice({
-    name: "app",
-    initialState: {
-        value: 23
-    },
+
+interface State {
+    value: number
+}
+
+const initialState: State = {
+    value: 12
+}
+
+export const main  = createSlice({
+    name: "main",
+    initialState,
     reducers: {
         increment: (state, action: PayloadAction<number>) => {
             state.value += action.payload
@@ -12,4 +19,4 @@ export const app  = createSlice({
     }
 })
 
-export default app.reducer
+export default main.reducer

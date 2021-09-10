@@ -1,11 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit'
-import appReducer from './state/app'
-import aboutReducer from './state/about'
+import mainReducer from './state/main'
 
 const store = configureStore({
     reducer: {
-        app: appReducer,
-        about: aboutReducer
+        main: mainReducer,
     }
 })
 

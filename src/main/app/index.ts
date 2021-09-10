@@ -1,23 +1,18 @@
 // 代表当前的应用
-import WindowsManager from "../class/WindowsManager";
-import WindowsMenu from "../class/WindowsMenu";
+import { Url } from "../core/url";
+import { WindowManager } from "main/core/window-manager";
+import { WindowMenu } from "../core/window-menu";
+import { registerIPCEvent } from "../core/ipc";
+import { Accelerator } from "../core/accelerator";
+import { createMainWin } from "../windows/main";
 
-const windowsManager = new WindowsManager()
-const windowsMenu = new WindowsMenu()
-
-class App {
-    windowsManager = windowsManager
-    windowsMenu = windowsMenu
-    /**你必须先调用此方法才可以使用app的所以功能 */
-    initApp() {
-        this.windowsMenu.init()
-        console.log(this.windowsMenu.getMenu()?.items)
+export class App {
+    url = new Url(this)
+    accelerator = new Accelerator(this)
+    windowManager = new WindowManager(this)
+    windowMenu = new WindowMenu(this)
+    async initApp() {
+        registerIPCEvent(this)
+        await createMainWin(this)
     }
-}
-
-
-export default App
-
-export type {
-    App
 }
