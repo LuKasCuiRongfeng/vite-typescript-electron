@@ -5,12 +5,14 @@ import { WindowMenu } from "../core/window-menu";
 import { registerIPCEvent } from "../core/ipc";
 import { Accelerator } from "../core/accelerator";
 import { createMainWin } from "../windows/main";
+import { Service } from "../core/service";
 
 export class App {
     url = new Url(this)
     accelerator = new Accelerator(this)
     windowManager = new WindowManager(this)
     windowMenu = new WindowMenu(this)
+    service = new Service(this)
     async initApp() {
         registerIPCEvent(this)
         await createMainWin(this)

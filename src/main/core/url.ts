@@ -19,6 +19,6 @@ export class Url {
         if (_isDev) {
             return `http://localhost:${process.env.PORT}/#/${_key}`
         }
-        return join(`file://`, process.cwd(), `dist/renderer/index.html#${_key}`)
+        return join(`file://`, __dirname, `../renderer/index.html#${_key}`)
     }
 }

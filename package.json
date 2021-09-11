@@ -2,59 +2,19 @@
   "name": "ele-ts",
   "author": "crf",
   "description": "ele for typescript",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "main": "dist/main/main.js",
   "scripts": {
     "start": "concurrently -n=render,main -c=green,blue \"npm run start:dev\" \"npm run start:ele\"",
     "start:dev": "vite",
-    "start:ele": "ts-node script/electron.dev.ts --watch",
+    "start:ele": "ts-node script/electron.dev.ts",
     "build:dev": "tsc && vite build",
-    "build:ele": "ts-node script/electron.dev.ts",
+    "build:ele": "ts-node script/electron.dev.ts --prod",
     "prebuild": "rimraf dist",
     "build": "npm run build:dev && npm run build:ele && electron-builder",
     "debug:ele": "ts-node script/electron.dev --debug",
     "debug": "concurrently -n=render,main -c=green,blue \"npm run start:dev\" \"npm run debug:ele\"",
     "serve": "vite preview"
-  },
-  "build": {
-    "appId": "2067380264@qq.com",
-    "productName": "electron-template",
-    "copyright": "Copyright @ 2021 ${author}",
-    "asar": false,
-    "directories": {
-      "output": "release/babel-webpack"
-    },
-    "files": [
-      "!node_modules",
-      "dist/**"
-    ],
-    "extraResources": {
-      "from": "src/preload",
-      "to": "app/src/preload"
-    },
-    "mac": {
-      "artifactName": "${productName}-V-${version}.${ext}",
-      "target": [
-        "dmg"
-      ]
-    },
-    "win": {
-      "target": [
-        {
-          "target": "nsis",
-          "arch": [
-            "x64"
-          ]
-        }
-      ],
-      "artifactName": "${productName}-V-${version}.${ext}"
-    },
-    "nsis": {
-      "oneClick": false,
-      "perMachine": false,
-      "allowToChangeInstallationDirectory": true,
-      "deleteAppDataOnUninstall": false
-    }
   },
   "dependencies": {
   },
@@ -91,5 +51,6 @@
     "typescript": "^4.3.2",
     "vite": "^2.3.7",
     "wait-on": "^5.3.0"
-  }
+  },
+  "license": "MIT"
 }

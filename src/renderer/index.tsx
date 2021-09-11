@@ -5,12 +5,14 @@ import { Provider } from 'react-redux'
 
 import Main from './pages/main'
 import store from './store'
+import Detail from './pages/detail'
 
 render(
     <StrictMode>
         <Provider store={store}>
             <HashRouter>
                 <Route path="/" exact component={Main}></Route>
+                <Route path="/detail" component={Detail}></Route>
             </HashRouter>
         </Provider>
     </StrictMode>,

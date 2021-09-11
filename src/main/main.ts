@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from 'electron'
+import { app, BrowserWindow, net } from 'electron'
 import { App } from './app'
 import { registerIPCEvent } from './core/ipc'
 import { createMainWin } from './windows/main'
