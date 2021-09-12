@@ -1,7 +1,9 @@
 import { BrowserWindow, BrowserWindowConstructorOptions, BrowserView, Rectangle, app } from 'electron'
 import { App } from 'main/app'
 import { IpcType } from 'src/consts/ipc'
+import { isDev } from '../utils/tools'
 
+const _isDev = isDev()
 
 export const defaultWinOptions: BrowserWindowConstructorOptions = {
     width: 700,
@@ -9,7 +11,8 @@ export const defaultWinOptions: BrowserWindowConstructorOptions = {
     webPreferences: {
         enableRemoteModule: true,
         nodeIntegration: true,
-        contextIsolation: false
+        contextIsolation: false,
+        webSecurity: _isDev ? false : true
     }
 }
 
@@ -55,7 +58,9 @@ export class WindowManager {
                 return
             }
         })
+        
         window.loadURL(this.myApp.url.getLoadUrl(key))
+
         window.on("closed", () => {
             this.windows.delete(key)
         })

@@ -1,13 +1,12 @@
 import React from "react"
 import { ipc } from "src/renderer/core/ipc"
+import { request } from "src/renderer/core/service"
 
 
 export default function Detail() {
 
     const get = () => {
-        ipc.invoke("API_REQUEST", {
-            url: "http://localhost:8000"
-        })
+        request({})
     }
 
     return (

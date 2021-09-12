@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 
 import { useAppDispatch, useAppSelector } from 'renderer/store/hooks'
 import { ipc } from 'src/renderer/core/ipc'
+import { request } from 'src/renderer/core/service'
 import './index.css'
 
 function Main() {
@@ -20,17 +21,15 @@ function Main() {
         })
     }
     const getData = async () => {
-        // fetch("http://localhost:8000").then(res => res.json())
-        // .then(res => { console.log(res) })
-        const res = await ipc.invoke("API_REQUEST", {
-            url: "http://localhost:8000",
-            headers: {
-                "Content-type": "application/json"
-            },
-            method: "POST",
-            params: JSON.stringify({ name: "crf", age: 12 })
+        const res = await request({
+            params: {
+                name: "crf",
+                age: 12
+            }
         })
-        console.log(res)
+        if (res.status === 200) {
+            console.log(res)
+        }
     }
     return (
         <div>

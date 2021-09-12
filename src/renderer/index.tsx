@@ -3,6 +3,8 @@ import { render } from 'react-dom'
 import { HashRouter, Route } from 'react-router-dom'
 import { Provider } from 'react-redux'
 
+import 'antd/dist/antd.css'
+
 import Main from './pages/main'
 import store from './store'
 import Detail from './pages/detail'
