@@ -21,8 +21,7 @@ export function menuTemplate(myApp: App) {
         {
             label: '文件',
             submenu: [
-                { role: 'close', label: "关闭" },
-                {...myApp.accelerator.matchMenu("退出")}
+                { role: 'close', label: "关闭" }
             ]
         },
         {
@@ -91,8 +90,7 @@ export function menuTemplate(myApp: App) {
         {
             label: '文件',
             submenu: [
-                { role: 'close', label: "关闭" },
-                {...myApp.accelerator.matchMenu("退出")}
+                { role: 'close', label: "关闭" }
             ]
         },
         {
@@ -135,6 +133,7 @@ export function menuTemplate(myApp: App) {
             role: 'help',
             label: "帮助",
             submenu: [
+                {...myApp.accelerator.matchMenu("切换开发者工具")},
                 {
                     label: '更多',
                     click: async () => {

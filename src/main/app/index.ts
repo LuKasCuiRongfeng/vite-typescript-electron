@@ -9,8 +9,8 @@ import { Service } from "../core/service";
 
 export class App {
     url = new Url(this)
-    accelerator = new Accelerator(this)
     windowManager = new WindowManager(this)
+    accelerator = new Accelerator(this)
     windowMenu = new WindowMenu(this)
     service = new Service(this)
     async initApp() {

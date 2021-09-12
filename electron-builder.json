@@ -3,16 +3,18 @@
     "productName": "打飞机",
     "copyright": "Copyright @ 2021 ${author}",
     "directories": {
-        "output": "release/${productName}${version}"
+        "output": "release/${productName} ${version}"
     },
     "files": [
-        "dist/**"
+        "dist/**",
+        "build/icon.ico"
     ],
     "mac": {
-        "artifactName": "${productName}-${version}.${ext}",
+        "artifactName": "${productName} ${version}.${ext}",
         "target": [
             "dmg"
-        ]
+        ],
+        "icon": "icon.png"
     },
     "win": {
         "target": [
@@ -23,12 +25,15 @@
                 ]
             }
         ],
-        "artifactName": "${productName}-${version}.${ext}"
+        "artifactName": "${productName} Setup ${version}.${ext}",
+        "icon": "build/icon.ico"
     },
     "nsis": {
         "oneClick": false,
         "perMachine": false,
         "allowToChangeInstallationDirectory": true,
-        "deleteAppDataOnUninstall": false
+        "deleteAppDataOnUninstall": true,
+        "installerIcon": "build/icon.ico",
+        "uninstallerIcon": "build/icon.ico"
     }
 }

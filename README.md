@@ -25,3 +25,4 @@ webpack版本移动至[webpack-version](https://github.com/LuKasCuiRongfeng/elec
 ********
 # 点个赞？
 手滑给个star？
+> 图片转换 https://www.coolutils.com/online/ICNS-to-ICO
