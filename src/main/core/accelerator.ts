@@ -1,4 +1,4 @@
-import { globalShortcut } from "electron";
+import { app, globalShortcut } from "electron";
 import { App } from "../app";
 import { isDev } from "../utils/tools";
 
@@ -22,8 +22,15 @@ export class Accelerator {
                 label: "切换开发者工具",
                 accelerator: "CommandOrControl+Shift+I",
                 listener() {
-                   myApp.windowManager.getFocusWin()?.webContents.toggleDevTools() 
+                    myApp.windowManager.getFocusWin()?.webContents.toggleDevTools()
                 }
+            },
+            {
+                label: "退出",
+                accelerator: "CmdOrCtrl+Q",
+                listener() {
+                    app.quit()
+                },
             }
         ]
     }
@@ -32,7 +39,7 @@ export class Accelerator {
         this.getAccelerators().forEach(acce => {
             let listener = acce.listener
             if (!isDev() && acce.label === "切换开发者工具") {
-                listener = () => {}
+                listener = () => { }
             }
             globalShortcut.register(acce.accelerator, listener)
         })
@@ -41,7 +48,6 @@ export class Accelerator {
     /** 为了避免在menu里再写一次 */
     matchMenu(label: string) {
         const match = this.getAccelerators().find(acce => acce.label === label)
-        console.log(match)
         if (match) {
             return {
                 label,
@@ -52,5 +58,11 @@ export class Accelerator {
         return {
             label: "菜单没有注册"
         }
+    }
+
+    /** 从自定义菜单响应 */
+    callListenerByCustomMenu(label: string) {
+        const listener = this.getAccelerators().find(accelerator => accelerator.label === label)?.listener
+        listener && listener()
     }
 }

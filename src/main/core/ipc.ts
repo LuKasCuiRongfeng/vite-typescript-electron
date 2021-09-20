@@ -1,4 +1,4 @@
-import { ipcMain, net } from 'electron'
+import { app, ipcMain, net } from 'electron'
 import { IpcType } from 'src/consts/ipc'
 import { App } from '../app'
 
@@ -31,5 +31,26 @@ export function registerIPCEvent(myApp: App) {
             method
         })
         return res
+    })
+    ipcMain.on(IpcType.CUSTOM_MENU_EVENT, (e, args) => {
+        myApp.accelerator.callListenerByCustomMenu(args)
+    })
+    ipcMain.on(IpcType.CUSTOM_WINDOWS_CONTROL, (e, args) => {
+        const win = myApp.windowManager.getFocusWin()
+        switch (args) {
+            case "最小化":
+                win?.minimize()
+                break;
+            case "最大化":
+                win?.isMaximized() ? win.unmaximize() : win?.maximize()
+                break;
+            case "关闭":
+                win?.destroy()
+                break;
+            default:
+        }
+    })
+    ipcMain.handle(IpcType.GET_PLATFORM, (e,args) => {
+        return process.platform
     })
 }

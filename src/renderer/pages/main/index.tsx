@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react'
-
+import React from 'react'
 import { useAppDispatch, useAppSelector } from 'renderer/store/hooks'
 import { ipc } from 'src/renderer/core/ipc'
 import { request } from 'src/renderer/core/service'
-import './index.css'
+import AwesomeTitlebar from './awsome-titlebar'
+import { menuTemplate } from './menuTemplate'
+import './index.less'
 
 function Main() {
     const dispatch = useAppDispatch()
@@ -33,6 +34,7 @@ function Main() {
     }
     return (
         <div>
+            <AwesomeTitlebar theme="dark" template={menuTemplate} />
             <div>{value}</div>
             <button onClick={() => {
                 dispatch({
