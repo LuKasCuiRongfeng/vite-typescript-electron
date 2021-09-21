@@ -33,7 +33,7 @@ export function registerIPCEvent(myApp: App) {
         return res
     })
     ipcMain.on(IpcType.CUSTOM_MENU_EVENT, (e, args) => {
-        myApp.accelerator.callListenerByCustomMenu(args)
+        myApp.accelerator.callclickByCustomMenu(args)
     })
     ipcMain.on(IpcType.CUSTOM_WINDOWS_CONTROL, (e, args) => {
         const win = myApp.windowManager.getFocusWin()
@@ -52,5 +52,9 @@ export function registerIPCEvent(myApp: App) {
     })
     ipcMain.handle(IpcType.GET_PLATFORM, (e,args) => {
         return process.platform
+    })
+
+    ipcMain.on(IpcType.POP_CONTEXT_MENU, (e, args) => {
+        myApp.windowMenu.poContextmenu()
     })
 }

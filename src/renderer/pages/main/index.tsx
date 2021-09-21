@@ -2,9 +2,16 @@ import React from 'react'
 import { useAppDispatch, useAppSelector } from 'renderer/store/hooks'
 import { ipc } from 'src/renderer/core/ipc'
 import { request } from 'src/renderer/core/service'
-import AwesomeTitlebar from './awsome-titlebar'
-import { menuTemplate } from './menuTemplate'
+import AwesomeTitlebar from 'renderer/components/awsome-titlebar'
+import { menuTemplate } from 'renderer/components/awsome-titlebar/menuTemplate'
+import icon from './porn.png'
 import './index.less'
+
+window.addEventListener("contextmenu", () => {
+    ipc.send("POP_CONTEXT_MENU", "")
+})
+
+window.name = "crf"
 
 function Main() {
     const dispatch = useAppDispatch()
@@ -22,19 +29,12 @@ function Main() {
         })
     }
     const getData = async () => {
-        const res = await request({
-            params: {
-                name: "crf",
-                age: 12
-            }
-        })
-        if (res.status === 200) {
-            console.log(res)
-        }
+        window.theme = Date.now().toString()
+        window.name = Date.now().toString()
     }
     return (
         <div>
-            <AwesomeTitlebar theme="dark" template={menuTemplate} />
+            <AwesomeTitlebar theme="dark" template={menuTemplate} icon={icon} />
             <div>{value}</div>
             <button onClick={() => {
                 dispatch({
@@ -45,6 +45,7 @@ function Main() {
             <button onClick={openView}>view</button>
             <button onClick={openDetail}>open detail</button>
             <button onClick={getData}>get data</button>
+            <button>{window.theme}</button>
         </div>
     )
 }

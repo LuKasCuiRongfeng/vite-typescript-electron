@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ipc } from "src/renderer/core/ipc";
 import Awemenu from './Awemenu'
 import './index.less'
@@ -25,13 +25,13 @@ export default function AwesomeTitlebar(props: Props) {
             }
         })
     }, [])
-    const { className, style, template, height = 30, theme = "dark" } = props
+    const { className, style, template, height = 30, theme = "dark", icon = "icon" } = props
     return (
         <div className={`theme-${theme} awesome-titlebar ${platform}-style ${className}`} style={{ height: height, ...style }}>
             {
                 platform === "win32" ? (
                     <>
-                        <Awemenu template={template} height={height} theme={theme} />
+                        <Awemenu template={template} height={height} theme={theme} icon={icon} />
                         <WindowsControl />
                     </>
                 ) : ""

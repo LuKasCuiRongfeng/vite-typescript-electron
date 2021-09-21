@@ -8,6 +8,8 @@ const _isDev = isDev()
 export const defaultWinOptions: BrowserWindowConstructorOptions = {
     width: 700,
     height: 700,
+    frame: false,
+    show: false,
     webPreferences: {
         enableRemoteModule: true,
         nodeIntegration: true,
@@ -65,6 +67,7 @@ export class WindowManager {
             this.windows.delete(key)
         })
         window.on("ready-to-show", () => {
+            window?.show()
             if (openDevTools) {
                 window?.webContents.openDevTools()
             }

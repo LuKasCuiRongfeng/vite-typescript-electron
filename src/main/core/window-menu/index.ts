@@ -15,4 +15,7 @@ export class WindowMenu {
     getMenu() {
         return Menu.getApplicationMenu()
     }
+    poContextmenu() {
+        this.getMenu()?.popup()
+    }
 }

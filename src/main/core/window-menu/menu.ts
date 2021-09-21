@@ -133,7 +133,7 @@ export function menuTemplate(myApp: App) {
             role: 'help',
             label: "帮助",
             submenu: [
-                {...myApp.accelerator.matchMenu("切换开发者工具")},
+                {...myApp.accelerator.registerMenu("切换开发者工具")},
                 {
                     label: '更多',
                     click: async () => {

@@ -4,8 +4,8 @@ import { ipc } from "src/renderer/core/ipc";
 import { AweMenuItem } from "./tool";
 import './index.less'
 
-export default function Awemenu(props: { template: AweMenuItem[], height?: number, theme: "dark" | "light" }) {
-    const { template, theme } = props
+export default function Awemenu(props: { template: AweMenuItem[], height?: number, theme: "dark" | "light", icon: string }) {
+    const { template, theme, icon } = props
 
     const overlay = (submenu: AweMenuItem[]) => {
         const getSubmenu = (item: AweMenuItem) => {
@@ -57,6 +57,9 @@ export default function Awemenu(props: { template: AweMenuItem[], height?: numbe
 
     return (
         <div className="awesome-menu">
+            <div className="awesome-menu-icon">
+                <img src={icon} alt="icon" width={18} />
+            </div>
             {
                 template.map(menu => (
                     getMenu(menu)
